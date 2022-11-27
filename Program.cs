@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Registered Connection Factory Service refering a value in the appsettings.json
+// Registered Connection Factory Service referencing a value in the appsettings.json
 builder.Services.AddSingleton<IDbConnectionFactory>(_ =>
     new SqliteConnectionFactory(builder.Configuration.GetValue<string>("Database:ConnectionString")));
 
