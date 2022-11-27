@@ -40,9 +40,12 @@ namespace LibraryMiniumAPI.Validators
             return await connection.QueryAsync<Book>("SELECT * FROM Books");
         }
 
-        public Task<Book?> GetByIsbnAsync(string isbn)
+        public async Task<Book?> GetByIsbnAsync(string isbn)
         {
-            throw new NotImplementedException();
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+            return connection.QuerySingleOrDefault<Book>(
+                "SELECT * FROM Books WHERE Isbn = @Isbn LIMIT 1", new { Isbn = isbn }
+                );
         }
 
         public Task<IEnumerable<Book>> SearchByTitleAsync(string searchTerm)
