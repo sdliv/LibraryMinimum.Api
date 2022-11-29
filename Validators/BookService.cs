@@ -14,12 +14,12 @@ namespace LibraryMiniumAPI.Validators
         }
         public async Task<bool> CreateAsync(Book book)
         {
-            //var existingBook = await GetByIsbnAsync(book.Isbn);
+            var existingBook = await GetByIsbnAsync(book.Isbn);
 
-            //if (existingBook is not null)
-            //{
-            //    return false;
-            //}
+            if (existingBook is not null)
+            {
+                return false;
+            }
 
             using var connection = await _connectionFactory.CreateConnectionAsync();
             var result = await connection.ExecuteAsync(
@@ -29,9 +29,13 @@ namespace LibraryMiniumAPI.Validators
             return result > 0;
         }
 
-        public Task<bool> DeleteAsync(string isbn)
+        public async Task<bool> DeleteAsync(string isbn)
         {
-            throw new NotImplementedException();
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+            var result = await connection.ExecuteAsync(
+                @"DELETE FROM Books WHERE Isbn = @Isbn", new {Isbn = isbn}
+                );
+            return result > 0;
         }
 
         public async Task<IEnumerable<Book>> GetAllAsync()
@@ -55,9 +59,19 @@ namespace LibraryMiniumAPI.Validators
                 "SELECT * FROM Books WHERE Title LIKE '%' || @SearchTerm || '%'", new { SearchTerm = searchTerm });
         }
 
-        public Task<bool> UpdateAsync(Book book)
+        public async Task<bool> UpdateAsync(Book book)
         {
-            throw new NotImplementedException();
+            var existingBook = await GetByIsbnAsync(book.Isbn);
+
+            if (existingBook is null)
+            {
+                return false;
+            }
+
+            using var connection = await _connectionFactory.CreateConnectionAsync();
+            var result = await connection.ExecuteAsync(
+                @"UPDATE Books SET Title = @Title, Author = @Author, ShortDescription = @ShortDescription, PageCount = @PageCount, ReleaseDate = @ReleaseDate WHERE Isbn = @Isbn", book);
+            return result > 0;
         }
     }
 }
