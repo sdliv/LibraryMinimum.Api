@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using LibraryMiniumAPI.Data;
-using LibraryMiniumAPI.Models;
+using LibraryMinimumAPI.Data;
+using LibraryMinimumAPI.Models;
 
-namespace LibraryMiniumAPI.Validators
+namespace LibraryMinimumAPI.Validators
 {
     public class BookService : IBookService
     {

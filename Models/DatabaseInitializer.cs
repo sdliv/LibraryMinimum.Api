@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using LibraryMiniumAPI.Data;
+using LibraryMinimumAPI.Data;
 
-namespace LibraryMiniumAPI.Models
+namespace LibraryMinimumAPI.Models
 {
     public class DatabaseInitializer
     {

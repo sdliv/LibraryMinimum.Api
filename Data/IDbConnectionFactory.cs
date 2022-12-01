@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace LibraryMiniumAPI.Data
+namespace LibraryMinimumAPI.Data
 {
     // Interface Factory for creating Database Connections.
     public interface IDbConnectionFactory

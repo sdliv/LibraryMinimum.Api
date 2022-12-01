@@ -1,4 +1,4 @@
-﻿namespace LibraryMiniumAPI.Models
+﻿namespace LibraryMinimumAPI.Models
 {
     public class Book
     {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LibraryMiniumAPI.Models;
+using LibraryMinimumAPI.Models;
 
-namespace LibraryMiniumAPI.Validators
+namespace LibraryMinimumAPI.Validators
 {
     public class BookValidator : AbstractValidator<Book>
     {

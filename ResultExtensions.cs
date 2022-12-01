@@ -1,7 +1,7 @@
 ﻿using System.Net.Mime;
 using System.Text;
 
-namespace LibraryMiniumAPI
+namespace LibraryMinimumAPI
 {
     public static class ResultExtensions
     {
