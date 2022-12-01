@@ -4,6 +4,7 @@ using LibraryMiniumAPI;
 using LibraryMiniumAPI.Data;
 using LibraryMiniumAPI.Models;
 using LibraryMiniumAPI.Validators;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.Json;
 
 // WebApplicationOptions for the builder.
@@ -21,6 +22,12 @@ builder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 // Authentication and Authorization Setups
 
 // Services Setup
+
+// CORS implementation
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AnyOrigin", x => x.AllowAnyOrigin());
+});
 
 // Custom JSON Binding.
 builder.Services.Configure<JsonOptions>(options =>
@@ -45,6 +52,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
 
 // Using Swagger Middleware, which must come after .Build() is called.
+
+app.UseCors();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -127,7 +137,7 @@ app.MapDelete("books/{isbn}", async (string isbn, IBookService bookService ) =>
 .Produces(404)
 .WithTags("Books");
 
-app.MapGet("status", () =>
+app.MapGet("status", [EnableCors("AnyOrigin")] () =>
 {
     return Results.Extensions.Html(@"<!doctype html>
 <html>
@@ -137,7 +147,7 @@ app.MapGet("status", () =>
         <p>The server is working fine. Bye bye!</p>
     </body>
 </html>");
-});
+}).ExcludeFromDescription(); // Removes endpoint from swagger. // .RequireCors("AnyOrigin") // Fluid approach to adding Cors.
 
 // DB init here
 var databaseInitializer = app.Services.GetRequiredService<DatabaseInitializer>();
