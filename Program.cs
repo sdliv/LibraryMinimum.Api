@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using LibraryMiniumAPI.Data;
 using LibraryMiniumAPI.Models;
 using LibraryMiniumAPI.Validators;
+using Microsoft.AspNetCore.Http.Json;
 
 // WebApplicationOptions for the builder.
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -19,6 +20,13 @@ builder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 // Authentication and Authorization Setups
 
 // Services Setup
+
+// Custom JSON Binding.
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNameCaseInsensitive = true;
+    options.SerializerOptions.IncludeFields = true;
+});
 
 // Swagger Setup
 builder.Services.AddEndpointsApiExplorer();
