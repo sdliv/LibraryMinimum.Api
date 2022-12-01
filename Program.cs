@@ -154,3 +154,7 @@ var databaseInitializer = app.Services.GetRequiredService<DatabaseInitializer>()
 await databaseInitializer.InitializeAsync();
 
 app.Run();
+
+
+
+// Unsupported Features for Minimal APIs
