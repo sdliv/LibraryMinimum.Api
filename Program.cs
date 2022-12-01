@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using LibraryMiniumAPI;
 using LibraryMiniumAPI.Data;
 using LibraryMiniumAPI.Models;
 using LibraryMiniumAPI.Validators;
@@ -125,6 +126,19 @@ app.MapDelete("books/{isbn}", async (string isbn, IBookService bookService ) =>
 .Produces(204)
 .Produces(404)
 .WithTags("Books");
+
+app.MapGet("status", () =>
+{
+    return Results.Extensions.Html(@"<!doctype html>
+<html>
+    <head><title>Status Page</title></head>
+    <body>
+        <h1>Status</h1>
+        <p>The server is working fine. Bye bye!</p>
+    </body>
+</html>");
+});
+
 // DB init here
 var databaseInitializer = app.Services.GetRequiredService<DatabaseInitializer>();
 await databaseInitializer.InitializeAsync();
