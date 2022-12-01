@@ -4,7 +4,15 @@ using LibraryMiniumAPI.Data;
 using LibraryMiniumAPI.Models;
 using LibraryMiniumAPI.Validators;
 
-var builder = WebApplication.CreateBuilder(args);
+// WebApplicationOptions for the builder.
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    /*WebRootPath = "./wwwroot",
+    EnvironmentName = Environment.GetEnvironmentVariable("env"),
+    ApplicationName = "Library.Api"
+    */
+});
 // Configuration example.
 builder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
