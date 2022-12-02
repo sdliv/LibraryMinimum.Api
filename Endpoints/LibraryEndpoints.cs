@@ -50,7 +50,7 @@ namespace LibraryMinimumAPI.Endpoints
                 .Produces(404)
                 .WithTags("Books");
 
-            app.MapGet("status", StatusByAsync )
+            app.MapGet("status", Status)
                 .ExcludeFromDescription(); // Removes endpoint from swagger. // .RequireCors("AnyOrigin") // Fluid approach to adding Cors.
         }
 
@@ -110,7 +110,7 @@ namespace LibraryMinimumAPI.Endpoints
         }
 
         [EnableCors("AnyOrigin")]
-        internal static async Task<IResult>StatusByAsync()
+        internal static IResult Status()
         {
             return Results.Extensions.Html(@"<!doctype html>
             <html>
